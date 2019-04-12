@@ -1,0 +1,8 @@
+test:
+  image: clojure:openjdk-8-lein-alpine
+  script:
+    - lein test
+lint:
+  image: clojure:openjdk-8-lein-alpine
+  script:
+    - lein eastwood
