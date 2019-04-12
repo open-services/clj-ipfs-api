@@ -1,4 +1,5 @@
 # ipfs-api
+[![Clojars Project](https://img.shields.io/clojars/v/open-services/ipfs-api.svg)](https://clojars.org/open-services/ipfs-api)
 
 A Clojure library designed to interact with a IPFS daemon.
 
