@@ -2,6 +2,18 @@
 
 A Clojure library designed to interact with a IPFS daemon.
 
+## Installation
+
+#### Leiningen/Boot
+```
+[open-services/ipfs-api "1.0.0"]
+```
+
+#### Clojure CLI/deps.edn
+```
+open-services/ipfs-api {:mvn/version "1.0.0"}
+```
+
 ## Usage
 
 FIXME
