@@ -50,6 +50,10 @@
 (comment
   (lowercase-keys {:Version "1"})
   ;; => {:version "1"}
+  (lowercase-keys {:My-Own-Version "1"})
+  ;; => {:my-own-version "1"}
+  (lowercase-keys {:MyOwnVersion "1"})
+  ;; => {:myownversion "1"}
   )
 
 (defn api-call

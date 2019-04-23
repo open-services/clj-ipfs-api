@@ -45,6 +45,10 @@
   (let [path (format "files/rm?arg=%s" path)]
     (utils/api-call http/get conn path {})))
 
+(defn stat [conn path]
+  (let [path (format "files/stat?arg=%s" path)]
+    (utils/api-call conn path)))
+
 (comment
   (write "/ip4/127.0.0.1/tcp/5001" "/name" "victor")
   (read "/ip4/127.0.0.1/tcp/5001" "/name")

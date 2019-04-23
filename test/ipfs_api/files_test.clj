@@ -80,6 +80,15 @@
         (is (= (String. (files/read daemon "/hello-lol/world" {:as :byte-array}))
                (String. b)))
         (files/rm daemon "/hello-lol/world")))
+    (testing "stat a directory"
+      (let [_ (files/write daemon "/hello-lol/world" (file->byte-array test-small-file-path))
+            res (files/stat daemon "/hello-lol")]
+        (is (= (:hash res) "Qmcf3v3DpHUBTM5bEQ46bqbCrNKKnZmGc7WbGYwGgT3a8p"))
+        (is (= (:size res) 0))
+        (is (= (:cumulativesize res) 120))
+        (is (= (:blocks res) 1))
+        (is (= (:type res) "directory"))
+      ))
     ;; (testing "create big file with byte-array"
     ;;   (let [b (file->byte-array test-big-file-path)]
     ;;     (files/write daemon "/hello" b)
