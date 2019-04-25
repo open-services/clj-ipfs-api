@@ -8,6 +8,9 @@
 (defn version [conn]
   (utils/api-call conn "version"))
 
+(defn id [conn]
+  (utils/api-call conn "id"))
+
 (defn directory? [object]
   (= (:data object) "\u0008\u0001"))
 

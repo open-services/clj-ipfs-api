@@ -1,4 +1,4 @@
-(defproject open-services/ipfs-api "1.0.1"
+(defproject open-services/ipfs-api "1.0.2"
   :description "Client IPFS API library with built-in daemon"
   :url "https://github.com/open-services/clj-ipfs-api"
   :license {:name "MIT"

@@ -35,6 +35,15 @@
     (with-daemon
       (is (= expected-version (misc/version daemon))))))
 
+(deftest id
+  (testing "Getting ID from daemon"
+    (with-daemon
+      (let [res (misc/id daemon)]
+        (is (string? (:id res)))
+        (is (string? (:publickey res)))
+        (is (string? (:agentversion res)))
+        (is (string? (:protocolversion res)))))))
+
 (defn test-add [daemon content]
   (let [mh (misc/add-str daemon content)]
     (is (= (misc/cat daemon mh) content))))
