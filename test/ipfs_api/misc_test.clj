@@ -5,11 +5,11 @@
             [clojure.java.io :as io]))
 
 (def expected-version
-  {:version "0.4.19"
+  {:version "0.4.20"
    :commit ""
    :repo "7"
    :system "amd64/linux"
-   :golang "go1.11.5"})
+   :golang "go1.12.4"})
 
 (def test-string "hello world")
 (def test-map {:name "Victor"})

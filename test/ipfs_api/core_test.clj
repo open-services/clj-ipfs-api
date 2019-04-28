@@ -1,3 +1,4 @@
+(ns ipfs-api.core_test)
 ;; (ns ipfs-api.core-test
 ;;   (:require [clojure.test :refer :all]
 ;;             ;; [ipfs-api.core :as ipfs-api]

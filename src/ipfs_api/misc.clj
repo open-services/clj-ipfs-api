@@ -2,8 +2,10 @@
   (:require [ipfs-api.utils :as utils]
             [clojure.edn :as edn]
             [clj-http.client :as http]
-            [cheshire.core :refer [parse-string]])
-  (:refer-clojure :exclude [cat]))
+            [cheshire.core :refer [parse-string]]
+            [clojure.java.io :refer [file]]
+            [clojure.string :refer [split-lines join replace]])
+  (:refer-clojure :exclude [cat replace]))
 
 (defn version [conn]
   (utils/api-call conn "version"))
@@ -64,7 +66,7 @@
 (defn hide-dotfiles-from-files-map [files]
   (remove #(= \. (first (:name %))) files))
 
-(defn get-files "" [dir] (hide-dirs (file-seq (clojure.java.io/file dir))))
+(defn get-files "" [dir] (hide-dirs (file-seq (file dir))))
 
 (comment
   (add-directory "/ip4/127.0.0.1/tcp/5001" "test/fixtures/dir")
@@ -87,7 +89,7 @@
 
 (defn ndjson-str-to-map
   [string]
-  (mapv parse-string (clojure.string/split-lines string)))
+  (mapv parse-string (split-lines string)))
 
 (defn get-hash-of-last
   [m]
@@ -96,13 +98,13 @@
 (defn to-local-filename
   [dir file]
   (let [filename (.getPath ^java.io.File file)]
-    (clojure.string/join "" (rest (clojure.string/replace filename dir "")))))
+    (join "" (rest (replace filename dir "")))))
 
 (comment
   (map #(to-local-filename "test/fixtures/nested-dir" %)
        (get-files "test/fixtures/nested-dir"))
 
-  (clojure.string/join "" (rest "/dir-a/file-b"))
+  (join "" (rest "/dir-a/file-b"))
   )
 
 (defn files-to-multipart

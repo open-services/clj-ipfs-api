@@ -26,10 +26,6 @@
         true)
       (catch Exception _ false))))
 
-(defn read [conn path]
-  (let [path (format "files/read?arg=%s" path)]
-    (utils/api-call http/get conn path {})))
-
 (defn read
   ([conn path]
    (read conn path {}))

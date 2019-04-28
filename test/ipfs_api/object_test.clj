@@ -1,3 +1,4 @@
+(ns ipfs-api.object_test)
 ;; (defn object-get
 ;;   ""
 ;;   [multihash]
