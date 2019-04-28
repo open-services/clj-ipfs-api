@@ -1,5 +1,5 @@
 test:
-  image: clojure:openjdk-8-lein-alpine
+  image: clojure:openjdk-8-lein
   script:
     - lein test
 lint:
