@@ -28,14 +28,14 @@
     ary))
 
 (defn test-create-file [daemon path content]
-    ;; Create new file
-    (files/write daemon path content)
-    ;; Read created file
-    (is (= (files/read daemon path) content))
-    ;; Remove the file
-    (files/rm daemon path)
-    ;; File doesn't exists anymore
-    (is (thrown? Exception (files/read daemon path))))
+  ;; Create new file
+  (files/write daemon path content)
+  ;; Read created file
+  (is (= (files/read daemon path) content))
+  ;; Remove the file
+  (files/rm daemon path)
+  ;; File doesn't exists anymore
+  (is (thrown? Exception (files/read daemon path))))
 
 (defn test-create-edn [daemon path structure]
   ;; Create new file
@@ -47,7 +47,7 @@
   ;; File doesn't exists anymore
   (is (thrown? Exception (files/read-edn daemon path))))
 
-(deftest files
+(deftest files-create
   (with-daemon
     (testing "create file"
       (test-create-file daemon test-file-path test-string))
@@ -72,14 +72,31 @@
         (files/write daemon "/hello-lol/world" b)
         (is (= (count (files/read daemon "/hello-lol/world")) (count b)))
         (is (= (files/read daemon "/hello-lol/world") (String. b)))
-        (files/rm daemon "/hello-lol/world")))
+        (files/rm daemon "/hello-lol/world")))))
+;; (testing "create big file with byte-array"
+;;   (let [b (file->byte-array test-big-file-path)]
+;;     (files/write daemon "/hello" b)
+;;     (is (= (count (files/read daemon "/hello")) (count b)))
+;;     (files/rm daemon "/hello")))
+;; (testing "create big file with byte-array"
+;;   (let [b (file->byte-array test-big-file-path)]
+;;     (files/write daemon "/dir-lol/world" b)
+;;     (is (= (count (files/read daemon "/dir-lol/world")) (count b)))
+;;     (is (= b (files/read daemon "/dir-lol/world")))
+;;     (files/rm daemon "/dir-lol/world")))
+
+(deftest files-read
+  (with-daemon
     (testing "read a file as byte-array"
       (let [b (file->byte-array test-small-file-path)]
         (files/write daemon "/hello-lol/world" b)
         (is (= (count (files/read daemon "/hello-lol/world")) (count b)))
         (is (= (String. (files/read daemon "/hello-lol/world" {:as :byte-array}))
                (String. b)))
-        (files/rm daemon "/hello-lol/world")))
+        (files/rm daemon "/hello-lol/world")))))
+
+(deftest files-create
+  (with-daemon
     (testing "stat a directory"
       (let [_ (files/write daemon "/hello-lol/world" (file->byte-array test-small-file-path))
             res (files/stat daemon "/hello-lol")]
@@ -87,17 +104,20 @@
         (is (= (:size res) 0))
         (is (= (:cumulativesize res) 120))
         (is (= (:blocks res) 1))
-        (is (= (:type res) "directory"))
-      ))
-    ;; (testing "create big file with byte-array"
-    ;;   (let [b (file->byte-array test-big-file-path)]
-    ;;     (files/write daemon "/hello" b)
-    ;;     (is (= (count (files/read daemon "/hello")) (count b)))
-    ;;     (files/rm daemon "/hello")))
-    ;; (testing "create big file with byte-array"
-    ;;   (let [b (file->byte-array test-big-file-path)]
-    ;;     (files/write daemon "/dir-lol/world" b)
-    ;;     (is (= (count (files/read daemon "/dir-lol/world")) (count b)))
-    ;;     (is (= b (files/read daemon "/dir-lol/world")))
-    ;;     (files/rm daemon "/dir-lol/world")))
-    ))
+        (is (= (:type res) "directory"))))))
+
+(deftest files-ls
+  (with-daemon
+    (testing "ls a directory"
+      (let [b (file->byte-array test-small-file-path)]
+        (files/write daemon "/hello-lol/hello" b)
+        (files/write daemon "/hello-lol/world" b)
+        (let [res (files/ls daemon "/hello-lol")]
+          (is (= (count res) 2))
+          (is (= res [{:name "hello", :type 0, :size 0, :hash ""}
+                      {:name "world", :type 0, :size 0, :hash ""}])))
+        (let [res (files/ls daemon "/")]
+          (is (= (count res) 1))
+          (is (= res [{:name "hello-lol", :type 0, :size 0, :hash ""}])))
+        (files/rm daemon "/hello-lol/hello")
+        (files/rm daemon "/hello-lol/world")))))

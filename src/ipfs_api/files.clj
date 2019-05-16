@@ -45,7 +45,14 @@
   (let [path (format "files/stat?arg=%s" path)]
     (utils/api-call conn path)))
 
+(defn ls
+  ([conn path]
+   (let [path (format "files/ls?arg=%s" path)]
+     (:entries (utils/api-call conn path)))))
+
 (comment
   (write "/ip4/127.0.0.1/tcp/5001" "/name" "victor")
   (read "/ip4/127.0.0.1/tcp/5001" "/name")
-  (rm "/ip4/127.0.0.1/tcp/5001" "/name"))
+  (rm "/ip4/127.0.0.1/tcp/5001" "/name")
+  (ls "/ip4/172.18.0.5/tcp/5001" "/npmjs.org")
+  )
