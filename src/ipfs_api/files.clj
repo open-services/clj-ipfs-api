@@ -22,7 +22,7 @@
   (let [path (format "files/stat?arg=%s" path)]
     (try
       (do
-        (utils/api-call http/get conn path {})
+        (utils/api-call http/post conn path {})
         true)
       (catch Exception _ false))))
 
@@ -31,15 +31,15 @@
    (read conn path {}))
   ([conn path opts]
    (let [path (format "files/read?arg=%s" path)]
-     (utils/api-call http/get conn path opts))))
+     (utils/api-call http/post conn path opts))))
 
 (defn read-edn [conn path]
   (let [path (format "files/read?arg=%s" path)]
-    (edn/read-string (utils/api-call http/get conn path {}))))
+    (edn/read-string (utils/api-call http/post conn path {}))))
 
 (defn rm [conn path]
   (let [path (format "files/rm?arg=%s" path)]
-    (utils/api-call http/get conn path {})))
+    (utils/api-call http/post conn path {})))
 
 (defn stat [conn path]
   (let [path (format "files/stat?arg=%s" path)]

@@ -10,9 +10,9 @@
 
 (def api-file-path (format "%s/%s" home ".ipfs/api"))
 
-(def default-version "v0.4.20")
+(def default-version "v0.5.0")
 (def default-platform "linux-amd64")
-(def root-hash "QmPPPSBDbmJJYAHYpHpZQcLRiBavgxGbkzfKVBuFmZcE6N")
+(def root-hash "Qmbyd2TZ7mZ3PX7P5owUgW2caZSC6TCaq87nr5mkRkEijB")
 (def gateway "https://ipfs.io/ipfs/%s")
 
 (defn get-binary-path [version platform]

@@ -60,8 +60,8 @@
   ([conn endpoint]
    (lowercase-keys (api-call conn endpoint {:as :json})))
   ([conn endpoint opts]
-   (api-call http/get conn endpoint opts))
- ([method conn endpoint opts]
+   (api-call http/post conn endpoint opts))
+  ([method conn endpoint opts]
    (let [addr (format-http-addr conn endpoint)]
      (:body (method addr opts)))))
 
