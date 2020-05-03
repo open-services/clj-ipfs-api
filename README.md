@@ -7,12 +7,12 @@ A Clojure library designed to interact with a IPFS daemon.
 
 #### Leiningen/Boot
 ```
-[open-services/ipfs-api "1.1.0"]
+[open-services/ipfs-api "1.2.0"]
 ```
 
 #### Clojure CLI/deps.edn
 ```
-open-services/ipfs-api {:mvn/version "1.1.0"}
+open-services/ipfs-api {:mvn/version "1.2.0"}
 ```
 
 ## Usage
